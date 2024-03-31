@@ -109,6 +109,7 @@ final class GPTChattingViewController: UIViewController {
             .store(in: &cancellables)
         
         viewModel.error
+            .receive(on: DispatchQueue.main)
             .flatMap { [weak self] error in
                 guard let self = self else { return Empty<Void, Never>().eraseToAnyPublisher() }
                 return UIAlertController.presentErrorPublisher(on: self, with: error)
